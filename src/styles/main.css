@@ -1,0 +1,1840 @@
+/* =====================================================
+   ROOT VARIABLES – LUXURY GOLD THEME
+===================================================== */
+:root {
+  --gold-primary: #c9a24d;
+  --gold-dark: #a8842f;
+  --gold-light: #e6d3a3;
+
+  --text-dark: #2f2f2f;
+  --text-muted: #555;
+
+  --bg-white: #ffffff;
+  --bg-soft: #faf8f2;
+  --bg-card: #f7f6f2;
+
+  --shadow-soft: 0 12px 30px rgba(201, 162, 77, 0.25);
+}
+
+/* =====================================================
+   GLOBAL
+===================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Poppins", Arial, sans-serif;
+  background: var(--bg-white);
+  color: var(--text-dark);
+  line-height: 1.6;
+  padding-top: 90px;
+}
+
+/* =====================================================
+   NAVBAR – GLASSMORPHISM + RESPONSIVE
+===================================================== */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 22px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: transparent;
+  transition: all 0.35s ease;
+  z-index: 1000;
+}
+
+/* Glass effect on scroll */
+.navbar-glass {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Logo */
+.logo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gold-primary);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* ================= NAV LINKS ================= */
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links a {
+  position: relative;
+  text-decoration: none;
+  color: var(--text-dark);
+  font-weight: 550;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+/* Hover */
+.nav-links a:hover {
+  color: var(--gold-primary);
+}
+
+/* Active link indicator */
+.nav-links a.active::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 3px;
+  border-radius: 10px;
+  background: var(--gold-primary);
+}
+
+/* ================= SIGNUP BUTTON ================= */
+
+.signup-btn {
+  padding: 8px 18px;
+  border-radius: 25px;
+  background: var(--gold-primary);
+  color: #111 !important;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.nav-links .signup-btn:hover {
+  background: rgba(201, 162, 77, 0.9);
+  color: #fff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.nav-user {
+  font-weight: 500;
+  font-size: 17px;
+  color: #c9a24d; /* gold tone */
+}
+
+.logout-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #c9a24d;
+  
+}
+
+/* ================= HAMBURGER ================= */
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.hamburger span {
+  width: 26px;
+  height: 3px;
+  background: var(--text-dark);
+  border-radius: 4px;
+  transition: all 0.4s ease;
+}
+
+.hamburger.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(14px);
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: all 0.35s ease;
+  }
+
+  .nav-links.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    padding: 20px 0;
+  }
+
+  .nav-links li {
+    padding: 12px 0;
+  }
+}
+
+/* =====================================================
+   HERO
+===================================================== */
+.hero {
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+    url("https://images.unsplash.com/photo-1556228453-efd6c1ff04f6") center /
+      cover no-repeat;
+  display: flex;
+  align-items: center;
+  padding: 0 80px;
+}
+
+.hero-content {
+  max-width: 520px;
+  color: white;
+}
+
+.hero h1 {
+  font-size: 3.2rem;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+}
+
+.cta-btn {
+  background: var(--gold-primary);
+  border: none;
+  padding: 14px 32px;
+  border-radius: 30px;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.cta-btn:hover {
+  background: var(--gold-dark);
+}
+
+/* =====================================================
+   SECTIONS
+===================================================== */
+section {
+  padding: 80px 60px;
+}
+
+section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+  color: var(--gold-dark);
+}
+
+/* =====================================================
+   SERVICES
+===================================================== */
+.services {
+  background: var(--bg-white);
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.service-card {
+  background: var(--bg-card);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-soft);
+  border:2px solid var(--gold-dark);
+}
+
+.service-card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.service-content {
+  padding: 24px;
+}
+
+.service-content h3 {
+  color: var(--gold-primary);
+  margin-bottom: 10px;
+}
+
+.service-content p {
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.service-meta {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+}
+
+.service-btn {
+  margin-top: 18px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 25px;
+  background: var(--gold-primary);
+  color: white;
+  cursor: pointer;
+}
+
+.service-btn:hover {
+  background: var(--gold-dark);
+}
+
+/* Explore Button */
+.explore-services {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.explore-btn {
+  padding: 14px 36px;
+  border-radius: 30px;
+  border: 2px solid var(--gold-primary);
+  color: var(--gold-primary);
+  text-decoration: none;
+}
+
+.explore-btn:hover {
+  background: var(--gold-primary);
+  color: white;
+}
+
+/* =====================================================
+   ABOUT – CENTER TITLE + SLIDE ANIMATIONS
+===================================================== */
+.about {
+  background:#f3f3f0;
+}
+
+.about-heading {
+  text-align: center;
+  font-size: 2.8rem;
+  margin-bottom: 60px;
+}
+
+.about-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.about-image img {
+  width: 100%;
+  border-radius: 24px;
+}
+
+.about-text {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+}
+
+/* Slide Animations */
+.slide-left,
+.slide-right {
+  opacity: 0;
+  transition: all 0.9s ease;
+}
+
+.slide-left {
+  transform: translateX(-60px);
+}
+
+.slide-right {
+  transform: translateX(60px);
+}
+
+.slide-left.show,
+.slide-right.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* =====================================================
+   ABOUT – BACKGROUND LOGO WATERMARK
+   (ADDITIVE ONLY)
+===================================================== */
+
+.about {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background logo */
+.about-bg-logo {
+  position: absolute;
+  inset: 0;
+  background-image: url("/spa-wellness-logo.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 520px;
+  opacity: 0.6;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Keep content above logo */
+.about-content-wrapper {
+  position: relative;
+  z-index: 2;
+}
+
+/* ---------- TESTIMONIALS SECTION ---------- */
+.testimonials {
+  background: var(--bg-white);
+  text-align: center;
+}
+
+.testimonials-heading {
+  font-size: 2.6rem;
+  margin-bottom: 40px;
+  color: var(--gold-dark);
+}
+
+/* Grid */
+.testimonials-container {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+}
+
+/* Card */
+.testimonial-card {
+  background: var(--bg-card);
+  padding: 26px;
+  border-radius: 18px;
+  text-align: center;
+  transition: 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(201, 162, 77, 0.25);
+}
+
+/* Text */
+.testimonial-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  font-style: italic;
+}
+
+.testimonial-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--gold-primary);
+}
+
+/* ---------- ANIMATION ---------- */
+.slide-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.7s ease-out;
+}
+
+.slide-up.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- TESTIMONIAL FORM ---------- */
+.testimonial-form {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: var(--bg-card);
+  padding: 28px;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(201, 162, 77, 0.15);
+}
+
+.testimonial-form h3 {
+  margin-bottom: 16px;
+  color: var(--gold-primary);
+  font-size: 1.3rem;
+}
+
+.testimonial-form input,
+.testimonial-form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--gold-light);
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(6px);
+  transition: 0.3s ease;
+}
+
+.testimonial-form input:focus,
+.testimonial-form textarea:focus {
+  outline: none;
+  border-color: var(--gold-primary);
+  box-shadow: 0 0 0 3px rgba(201, 162, 77, 0.2);
+}
+
+.testimonial-form textarea {
+  resize: none;
+  height: 100px;
+}
+
+.testimonial-form button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 25px;
+  background: var(--gold-primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.testimonial-form button:hover {
+  background: var(--gold-dark);
+  transform: translateY(-2px);
+}
+
+/* =====================================================
+   BOOKING FORM
+===================================================== */
+.booking-form {
+  max-width: 1000px;
+  margin: auto;
+  display: grid;
+  gap: 12px;
+}
+
+.booking-form input,
+.booking-form select {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(6px);
+}
+
+.booking-form button {
+  padding: 12px;
+  border-radius: 25px;
+  border: none;
+  background: var(--gold-primary);
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.booking-form button:hover {
+  background: var(--gold-dark);
+  transform: scale(1.03);
+}
+
+/* =====================================================
+   BOOKING MODAL
+===================================================== */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal {
+  background: white;
+  width: 90%;
+  max-width: 420px;
+  padding: 26px;
+  border-radius: 18px;
+  position: relative;
+  animation: scaleIn 0.3s ease;
+}
+
+.modal h2 {
+  text-align: center;
+  margin-bottom: 8px;
+  color: var(--gold-dark);
+}
+
+.modal-service {
+  text-align: center;
+  margin-bottom: 16px;
+  color: var(--text-muted);
+}
+
+.modal form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--gold-light);
+}
+
+.confirm-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 25px;
+  background: var(--gold-primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.confirm-btn:hover {
+  background: var(--gold-dark);
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* ANIMATION */
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ================= TOGGLE SECTION ================= */
+
+.booking-toggle-section {
+  padding: 80px 20px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8f6f2, #f1ede7);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: relative;
+  overflow: hidden;
+}
+
+/* ❌ REMOVE BACKGROUND LOGO COMPLETELY */
+.booking-toggle-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  /* ✨ subtle glow only (no logo) */
+  background: radial-gradient(circle, rgba(212,175,55,0.06), transparent 70%);
+
+  pointer-events: none;
+}
+
+/* 🔥 HEADING */
+.main-heading {
+  font-size: 48px;
+  font-weight: 700;
+  color: #b68a2c;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* 🔘 TOGGLE BUTTONS */
+.toggle-buttons {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 50px;
+}
+
+.toggle-buttons button {
+  padding: 10px 26px;
+  border-radius: 25px;
+  border: none;
+  background: #e0e0e0;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s ease;
+}
+
+.toggle-buttons button.active {
+  background: #d4af37;
+  color: white;
+}
+
+.toggle-buttons button:hover {
+  transform: translateY(-2px);
+}
+
+/* 📦 WRAPPER */
+.toggle-wrapper {
+  width: 100%;
+  max-width: 1400px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 60px;
+}
+
+/* 🧊 GLASS CARD */
+.glass-card {
+  flex: 1;
+  max-width: 750px;
+
+  padding: 40px;
+  border-radius: 25px;
+
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border: 1px solid rgba(255,255,255,0.3);
+
+  box-shadow: 
+    0 30px 80px rgba(0,0,0,0.12),
+    inset 0 1px 1px rgba(255,255,255,0.4);
+
+  transition: 0.4s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-5px);
+}
+
+/* 🖼 LOGO SIDE (ONLY ONE LOGO NOW) */
+.logo-side {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  opacity: 1;
+}
+
+.logo-side img {
+  width: 750px;
+  max-width: 100%;
+  height: auto;
+
+  transition: 0.4s ease;
+}
+
+/* ✨ optional subtle hover */
+.logo-side img:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+/* 🔄 TOGGLE LOGIC */
+
+/* BOOKING → card LEFT, logo RIGHT */
+.booking .toggle-wrapper {
+  flex-direction: row;
+}
+
+/* FEEDBACK → card RIGHT, logo LEFT */
+.feedback .toggle-wrapper {
+  flex-direction: row-reverse;
+}
+
+/* 📱 RESPONSIVE */
+@media (max-width: 900px) {
+  .toggle-wrapper {
+    flex-direction: column !important;
+    gap: 30px;
+  }
+
+  .logo-side img {
+    width: 200px;
+    opacity: 0.15;
+  }
+
+  .main-heading {
+    font-size: 32px;
+  }
+
+  .glass-card {
+    max-width: 100%;
+    padding: 25px;
+  }
+
+  .toggle-buttons {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+/* ================= FOOTER ================= */
+
+.footer {
+  position: relative;
+  z-index: 5;
+  background: var(--bg-soft);
+  padding:50px;
+}
+
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px;
+}
+
+.footer-brand h3 {
+  color: var(--gold-primary);
+  margin-bottom: 10px;
+}
+
+.footer-brand p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.footer-links h4,
+.footer-contact h4 {
+  color: var(--text-dark);
+  margin-bottom: 12px;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* LIST ITEM */
+.footer-links li {
+  margin-bottom: 8px;
+  list-style: none;
+}
+
+/* LINK */
+.footer-links a {
+  text-decoration: none;
+  color: #444; /* default text color */
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+/* HOVER EFFECT */
+.footer-links a:hover {
+  color: var(--gold-primary);
+}
+
+.footer-contact p {
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+/* Bottom bar */
+.footer-bottom {
+  margin-top: 40px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+@media (max-width: 900px) {
+  .about-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero {
+    padding: 0 30px;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+}
+
+
+/* =====================================================
+   SERVICES PAGE (SEPARATE STYLING)
+===================================================== */
+
+.services-page {
+  background: #ededea;
+  padding-top: 0;
+}
+
+/* ---------- SERVICES PAGE HEADER ---------- */
+.services-hero {
+  text-align: center;
+  padding: 70px 20px 80px; /* top reduced */
+  background: var(--bg-soft);
+  margin-top: 0; /* IMPORTANT */
+}
+
+.services-hero h1 {
+  font-size: 3rem;
+  color: var(--gold-dark);
+  margin-bottom: 15px;
+}
+
+.services-hero p {
+  max-width: 650px;
+  margin: auto;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+}
+
+/* ---------- SERVICES GRID ---------- */
+.services-page-grid {
+  max-width: 1500px;
+  margin: 70px auto;
+  padding: 0 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 120px;
+}
+
+/* ---------- SERVICE CARD ---------- */
+.services-page-card {
+  background: var(--bg-card);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+}
+
+.services-page-card:hover {
+  transform: translateY(-15px);
+  border: 2px solid var(--gold-dark);
+
+  box-shadow:
+    0 0 12px rgba(212, 175, 55, 0.6),
+    0 0 25px rgba(212, 175, 55, 0.45),
+    0 0 45px rgba(212, 175, 55, 0.25);
+
+  background:var(--bg-card);
+}
+
+/* Image */
+.services-page-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Content */
+.services-page-content {
+  padding: 22px;
+  text-align: center;
+}
+
+.services-page-content h3 {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+  color: var(--gold-primary);
+}
+
+.services-page-content p {
+  font-size: 0.95rem;
+  margin-bottom: 16px;
+  color: var(--text-muted);
+}
+
+/* Meta */
+.services-page-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  margin-bottom: 18px;
+}
+
+/* Book button */
+.services-page-content .service-btn {
+  width: 100%;
+}
+
+/* ---------- SERVICES CTA ---------- */
+.services-cta {
+  text-align: center;
+  padding: 90px 20px;
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.45),
+      rgba(0, 0, 0, 0.45)
+    ),
+    url("https://images.unsplash.com/photo-1540555700478-4be289fbecef")
+      center / cover no-repeat;
+  color: white;
+}
+
+.services-cta h2 {
+  font-size: 2.8rem;
+  margin-bottom: 12px;
+  color: var(--gold-light);
+}
+
+.services-cta p {
+  font-size: 1.1rem;
+  color: #f1f1f1;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  .services-page-grid {
+    padding: 0 25px;
+  }
+
+  .services-hero h1 {
+    font-size: 2.4rem;
+  }
+}
+
+/* ---------- BACK TO HOME ---------- */
+.back-home-container {
+  text-align: center;
+  margin: 80px 0 40px;
+}
+
+.back-home-btn {
+  display: inline-block;
+  padding: 14px 36px;
+  border-radius: 30px;
+  border: 2px solid var(--gold-primary);
+  color: var(--gold-primary);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.back-home-btn:hover {
+  background: var(--gold-primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(201, 162, 77, 0.3);
+}
+
+/* =====================================================
+   ADDITIONAL STYLING (BACKGROUND LOGO WATERMARK)
+   ✔ DOES NOT MODIFY ANY EXISTING RULES
+===================================================== */
+
+.services-page {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background logo */
+.services-bg-logo {
+  position: fixed;
+  inset: 0;
+  background-image: url("/spa-wellness-logo.svg"); /* update path if needed */
+  background-repeat: no-repeat;
+  background-position: center 55%;
+  background-size: 700px;
+  opacity: 0.6;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Content stays above logo */
+.services-page-content-wrapper {
+  position: relative;
+  z-index: 2;
+}
+
+/* Soft gold aura behind logo */
+.services-bg-logo::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    circle,
+    rgba(212, 175, 55, 0.18),
+    transparent 60%
+  );
+}
+
+@media (max-width: 768px) {
+  .services-bg-logo {
+    position: fixed; /* disable fixed on mobile */
+  }
+}
+
+
+/* ================= SIGN-UP PAGE ================= */
+
+/* PAGE WRAPPER */
+.signup-page {
+  min-height: 100vh;
+  display: flex;
+  background: #f7f7f7;
+}
+
+/* LEFT SIDE */
+.signup-left {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 80px;
+
+  /* 🔥 FIXED BACKGROUND */
+  background: url("/Login-Signup.png") no-repeat;
+  background-size: cover;
+  background-position: 98% center; /* 👈 shifted left */
+  opacity: 85%;
+}
+
+/* ================= UPDATED CARD ================= */
+.signup-card {
+  position: relative;
+  z-index: 2;
+
+  border-radius: 22px;
+  padding: 60px 55px;
+
+  background-color: rgba(255, 255, 255, 0.97);
+
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.12),
+    0 10px 20px rgba(0, 0, 0, 0.05);
+
+  overflow: hidden;
+}
+
+/* HEADINGS */
+.signup-card h2 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 10px;
+}
+
+.signup-card p {
+  font-size: 15px;
+  color: #666;
+  margin-bottom: 35px;
+  line-height: 1.6;
+}
+
+/* FORM */
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.signup-form input {
+  padding: 16px 18px;
+  font-size: 15px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  outline: none;
+  transition: all 0.25s ease;
+  background: #fafafa;
+}
+
+.signup-form input:focus {
+  border-color: var(--gold-primary);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(201, 162, 77, 0.18);
+}
+
+.signup-form input::placeholder {
+  color: #999;
+}
+
+/* BUTTON */
+.signup-form button {
+  margin-top: 20px;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 30px;
+
+  background: linear-gradient(
+    135deg,
+    #d8b25c,
+    #c9a24d
+  );
+
+  color: #111;
+  border: 2px solid black;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.signup-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(201, 162, 77, 0.4);
+  color: #fff;
+}
+
+/* RIGHT SIDE IMAGE */
+.signup-right {
+  flex: 1;
+  background: url("https://images.unsplash.com/photo-1556228453-efd6c1ff04f6")
+    center/cover no-repeat;
+  position: relative;
+  filter: brightness(1.3) contrast(1.05);
+}
+
+.signup-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 500;
+  text-align: center;
+  padding: 20px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .signup-right {
+    display: none;
+  }
+
+  .signup-left {
+    padding: 40px 20px;
+
+    /* keep same background behavior */
+    background: url("/Login-Signup.png") no-repeat;
+    background-size: cover;
+    background-position: 30% center;
+  }
+}
+
+/* AUTH SWITCH */
+.auth-switch {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #666;
+}
+
+.auth-switch a {
+  color: var(--gold-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-switch a:hover {
+  text-decoration: underline;
+}
+
+/* INPUT GROUP */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
+}
+
+/* TOAST */
+.toast-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  background: #ffffff;
+  color: #111;
+  padding: 16px 28px;
+  border-radius: 30px;
+
+  font-weight: 600;
+  font-size: 14px;
+
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  z-index: 9999;
+
+  animation: fadeScale 0.3s ease;
+}
+
+@keyframes fadeScale {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+
+/* ================= LOGIN PAGE ================= */
+
+.login-left {
+  order: 1;
+}
+
+.login-right {
+  order: 2;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+
+  background: url("/Login-Signup.png") no-repeat;
+  background-size: cover;
+  background-position: 99% center;  /* 👈 mirrored alignment */
+  opacity: 0.85;
+}
+
+/* LOGIN TOGGLE */
+.login-toggle {
+  display: flex;
+  background: #f3f3f3;
+  border-radius: 30px;
+  padding: 5px;
+  margin-bottom: 20px;
+  gap: 5px;
+}
+
+.login-toggle button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 30px;
+  background: transparent;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #666;
+}
+
+.login-toggle button.active {
+  background: linear-gradient(
+    135deg,
+    #d8b25c,
+    #c9a24d
+  );
+  color: #111;
+  box-shadow: 0 6px 15px rgba(201, 162, 77, 0.35);
+}
+
+/*============DASHBOARD STATUS & ACTIONS============== */
+
+/*================USER DASHBOARD WELCOME================*/
+.user-dashboard {
+  padding: 40px;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.user-table th,
+.user-table td {
+  text-align: center;
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.cancel-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.status {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status.pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status.accepted {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status.rejected {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/*================  USER DASHBOARD WELCOME================*/
+
+/* 🌸 BACKGROUND */
+.dashboard-container {
+  min-height: 100vh;
+  position: relative;
+
+  background: linear-gradient(135deg, #f8f6f2, #f1ede7);
+
+  display: flex;
+  justify-content: center;
+  padding: 60px 20px;
+  overflow: hidden;
+}
+
+/* 🌸 RANGOLI BACKGROUND */
+.dashboard-container::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+
+  background: url("/MyBooking.svg") center center no-repeat;
+  background-size: cover;        /* 👈 makes it adapt to screen */
+  opacity: 0.5;                /* adjust for visibility */
+  
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* CONTENT */
+.dashboard-content {
+  width: 100%;
+  max-width: 1100px;
+  position: relative;
+  z-index: 2; /* 👈 ensures content stays above SVG */
+}
+
+/* HEADER */
+.dashboard-header h1 {
+  font-size: 34px;
+  font-weight: 700;
+  color: #111;
+}
+
+.dashboard-header p {
+  color: #777;
+  margin-top: 6px;
+  margin-bottom: 30px;
+}
+
+/* CARD */
+.table-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+  transition: 0.3s ease;
+}
+
+.table-card:hover {
+  transform: translateY(-3px);
+}
+
+/* TABLE TOP */
+.table-top h2 {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+/* TABLE */
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-table th {
+  text-align: left;
+  padding: 14px;
+  font-size: 13px;
+  color: #999;
+  border-bottom: 1px solid #eee;
+}
+
+.user-table td {
+  padding: 16px 14px;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.user-table tr {
+  transition: 0.2s ease;
+}
+
+.user-table tr:hover {
+  background: rgba(0,0,0,0.02);
+}
+
+/* SERVICE TEXT */
+.service-cell {
+  font-weight: 500;
+}
+
+/* STATUS */
+.status {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status.accepted {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status.pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status.rejected {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* BUTTON */
+.cancel-btn {
+  background: linear-gradient(135deg, #ff5f6d, #d83a3a);
+  color: white;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.3s ease;
+}
+
+.cancel-btn:hover {
+  transform: scale(1.05);
+}
+
+/* EMPTY STATE */
+.empty-state {
+  background: rgba(255,255,255,0.9);
+  padding: 50px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+.dashboard-btn {
+  display: block;          /* makes it behave like a block */
+  margin: 18px auto 0;     /* 👈 THIS centers it horizontally */
+
+  padding: 12px 26px;
+  border-radius: 30px;
+  border: none;
+
+  background: linear-gradient(135deg, #d8b25c, #c9a24d);
+  color: #111;
+
+  font-weight: 600;
+  font-size: 14px;
+
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.dashboard-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(201, 162, 77, 0.4);
+  color: #fff;
+}
+
+.success-container p {
+  text-align: center;   /* 🔥 centers ALL text */
+  display: block;
+  margin-top: 8px;
+  color: black;
+}
+
+/* ================= GLOBAL FIXES (IMPORTANT) ================= */
+
+/* Fix form alignment everywhere */
+.glass-card form,
+.booking-form,
+.testimonial-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.glass-card input,
+.glass-card select,
+.glass-card textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Remove unwanted spacing */
+.booking-form,
+.testimonial-form {
+  margin: 0;
+}
+
+/* Fix heading wrapping */
+.glass-card h3 {
+  font-size: 22px;
+  text-align: center;
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+
+/* ================= RESPONSIVENESS ================= */
+
+/* 🔹 LARGE SCREENS */
+@media (max-width: 1200px) {
+  .signup-left,
+  .login-right {
+    padding: 60px;
+  }
+
+  .signup-card {
+    padding: 50px 40px;
+  }
+
+  .toggle-wrapper {
+    gap: 40px;
+  }
+
+  .glass-card {
+    max-width: 650px;
+    padding: 35px;
+  }
+
+  .logo-side img {
+    width: 550px;
+  }
+
+  .main-heading {
+    font-size: 42px;
+  }
+}
+
+/* 🔹 SMALL LAPTOPS */
+@media (max-width: 1024px) {
+  .toggle-wrapper {
+    gap: 30px;
+  }
+
+  .glass-card {
+    max-width: 600px;
+    padding: 30px;
+  }
+
+  .logo-side img {
+    width: 450px;
+  }
+
+  .main-heading {
+    font-size: 38px;
+  }
+}
+
+/* 🔹 TABLETS */
+@media (max-width: 900px) {
+  .signup-page {
+    flex-direction: column;
+  }
+
+  .signup-left,
+  .signup-right,
+  .login-left,
+  .login-right {
+    width: 100%;
+    min-height: 50vh;
+  }
+
+  .signup-left,
+  .login-right {
+    background-position: center;
+  }
+
+  .booking-toggle-section {
+    padding: 60px 20px;
+  }
+
+  .toggle-wrapper {
+    flex-direction: column !important;
+    gap: 25px;
+  }
+
+  .glass-card {
+    width: 100%;
+    max-width: 550px;
+    padding: 26px;
+  }
+
+  .logo-side img {
+    width: 260px;
+    opacity: 0.2;
+  }
+
+  .main-heading {
+    font-size: 32px;
+  }
+
+  .toggle-buttons {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* 🔹 MOBILE */
+@media (max-width: 600px) {
+  .signup-page {
+    flex-direction: column;
+  }
+
+  .signup-right,
+  .login-left {
+    display: none;
+  }
+
+  .signup-left,
+  .login-right {
+    width: 100%;
+    min-height: 100vh;
+    padding: 25px 15px;
+    background-position: center;
+  }
+
+  .booking-toggle-section {
+    padding: 20px 2px;
+  }
+
+  .main-heading {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  .toggle-buttons {
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .toggle-buttons button {
+    flex: 1;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .glass-card {
+    width: 100%;
+    max-width: 100%;
+    padding: 20px 4px;
+    border-radius: 16px;
+  }
+
+  .signup-card {
+    width: 100%;
+    max-width: 100%;
+    padding: 25px 18px;
+  }
+
+  .signup-card h2 {
+    font-size: 24px;
+  }
+
+  .signup-card p {
+    font-size: 14px;
+  }
+
+  .logo-side {
+    display: none;
+  }
+}
+
+/* 🔹 SMALL MOBILE */
+@media (max-width: 400px) {
+  .main-heading {
+    font-size: 20px;
+  }
+
+  .glass-card {
+    padding: 16px;
+  }
+
+  .toggle-buttons button {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+
+  .signup-card {
+    padding: 20px 15px;
+  }
+}
