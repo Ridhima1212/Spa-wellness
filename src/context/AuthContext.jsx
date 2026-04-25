@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react-hooks/set-state-in-effect */
 import { createContext, useContext, useEffect, useState } from "react";
+import API_BASE_URL from "../config";
 
 const AuthContext = createContext(null);
 
@@ -11,42 +12,41 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
-    const storedRole = localStorage.getItem("role");
-
-    if (storedUser && storedRole) {
-      setUser(JSON.parse(storedUser));
-      setRole(storedRole);
+    
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      setUser(parsedUser);
+      setRole(parsedUser.role?.toUpperCase() || "USER");
     }
-
     setLoading(false);
   }, []);
 
-  const login = (email, password, selectedRole) => {
-  const users = JSON.parse(localStorage.getItem("users")) || [];
+  const login = async (email, password) => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-  const foundUser = users.find(
-    (user) =>
-      user.email === email &&
-      user.password === password &&
-      user.role === selectedRole
-  );
+      const data = await res.json();
 
-  if (foundUser) {
-    localStorage.setItem("user", JSON.stringify(foundUser));
-    localStorage.setItem("role", foundUser.role);
-
-    setUser(foundUser);
-    setRole(foundUser.role);
-
-    return foundUser;
-  }
-
-  return null;
-};
+      if (res.ok) {
+        localStorage.setItem("user", JSON.stringify(data));
+        setUser(data);
+        setRole(data.role?.toUpperCase() || "USER");
+        return data;
+      } else {
+        throw new Error(data.message || "Invalid credentials");
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+      return null;
+    }
+  };
 
   const logout = () => {
     localStorage.removeItem("user");
-    localStorage.removeItem("role");
     setUser(null);
     setRole(null);
   };

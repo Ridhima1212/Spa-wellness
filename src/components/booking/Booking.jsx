@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import API_BASE_URL from "../../config";
 
 const Booking = () => {
   const { user } = useAuth();
@@ -20,29 +21,49 @@ const Booking = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // 🔐 AUTH CHECK
-    if (!user) {
+    if (!user || !user.token) {
       navigate("/login", { state: { from: "/booking" } });
       return;
     }
 
-    // ✅ simulate booking success
-    setSuccess(true);
-
-    setTimeout(() => {
-      setSuccess(false);
-      setFormData({
-        name: "",
-        email: "",
-        service: "",
-        date: "",
-        time: "",
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/bookings`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify({
+          service: formData.service,
+          date: formData.date,
+          time: formData.time,
+        }),
       });
-      navigate("/dashboard");
-    }, 2500);
+
+      if (res.ok) {
+        setSuccess(true);
+        setTimeout(() => {
+          setSuccess(false);
+          setFormData({
+            name: "",
+            email: "",
+            service: "",
+            date: "",
+            time: "",
+          });
+          navigate("/dashboard");
+        }, 2500);
+      } else {
+        const data = await res.json();
+        alert("Booking failed: " + (data.message || "Unknown error"));
+      }
+    } catch (error) {
+      alert("Error creating booking: " + error.message);
+    }
   };
 
   return (

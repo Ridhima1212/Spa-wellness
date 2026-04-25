@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import API_BASE_URL from "../../config";
 import banner from "../../assets/banner.svg";
 
 const Signup = () => {
@@ -13,6 +14,8 @@ const Signup = () => {
     role: "USER",
   });
 
+  const [error, setError] = useState("");
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -20,20 +23,36 @@ const Signup = () => {
     });
   };
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
+    setError("");
 
-    const users = JSON.parse(localStorage.getItem("users")) || [];
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/auth/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+          role: formData.role.toLowerCase(), // Backend expects lowercase "admin" or "user"
+        }),
+      });
 
-    users.push(formData);
+      const data = await res.json();
 
-    localStorage.setItem("users", JSON.stringify(users));
-
-    setShowToast(true);
-
-    setTimeout(() => {
-      navigate("/login");
-    }, 1500);
+      if (res.ok) {
+        setShowToast(true);
+        setTimeout(() => {
+          navigate("/login");
+        }, 1500);
+      } else {
+        setError(data.message || "Signup failed");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Server error. Please try again later.");
+    }
   };
 
   return (
@@ -92,6 +111,8 @@ const Signup = () => {
               required
               onChange={handleChange}
             />
+
+            {error && <p className="error" style={{color: 'red', marginTop: '10px'}}>{error}</p>}
 
             <button type="submit">Create Account</button>
 

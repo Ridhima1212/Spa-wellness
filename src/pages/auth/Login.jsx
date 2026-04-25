@@ -12,13 +12,13 @@ const Login = () => {
   const [role, setRole] = useState("USER"); // ✅ NEW
   const [error, setError] = useState("");
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    const user = login(email, password, role); // ✅ pass role
+    const user = await login(email, password); // role is now determined by backend based on user
 
     if (!user) {
-      setError("Invalid credentials or role");
+      setError("Invalid credentials");
       return;
     }
 

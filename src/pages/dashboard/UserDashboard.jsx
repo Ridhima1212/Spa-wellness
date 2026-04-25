@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import API_BASE_URL from "../../config";
 import "../../styles/main.css";
 const UserDashboard = () => {
   const { user } = useAuth();
@@ -18,36 +19,41 @@ const UserDashboard = () => {
   useEffect(() => {
     if (!user) return;
 
-    const loadBookings = () => {
-      const storedBookings =
-        JSON.parse(localStorage.getItem("bookings")) || [];
-
-      const userBookings = storedBookings.filter(
-        (booking) => booking.user === user.name
-      );
-
-      setBookings(userBookings);
+    const loadBookings = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/bookings/mybookings`, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
+        const data = await res.json();
+        if (res.ok) {
+          setBookings(data);
+        }
+      } catch (error) {
+        console.error("Failed to load user bookings:", error);
+      }
     };
 
     loadBookings();
   }, [user]);
 
   // ❌ Cancel booking
-  const cancelBooking = (id) => {
-    const storedBookings =
-      JSON.parse(localStorage.getItem("bookings")) || [];
+  const cancelBooking = async (id) => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/bookings/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
 
-    const updatedBookings = storedBookings.filter(
-      (booking) => booking.id !== id
-    );
-
-    localStorage.setItem("bookings", JSON.stringify(updatedBookings));
-
-    const userBookings = updatedBookings.filter(
-      (booking) => booking.user === user.name
-    );
-
-    setBookings(userBookings);
+      if (res.ok) {
+        setBookings(bookings.filter((booking) => booking._id !== id));
+      }
+    } catch (error) {
+      console.error("Failed to cancel booking", error);
+    }
   };
 
 return (
@@ -87,7 +93,7 @@ return (
 
             <tbody>
               {bookings.map((booking) => (
-                <tr key={booking.id}>
+                <tr key={booking._id}>
                   <td className="service-cell">{booking.service}</td>
                   <td>{booking.date}</td>
                   <td>{booking.time}</td>
@@ -101,7 +107,7 @@ return (
                   <td>
                     <button
                       className="cancel-btn"
-                      onClick={() => cancelBooking(booking.id)}
+                      onClick={() => cancelBooking(booking._id)}
                     >
                       Cancel
                     </button>

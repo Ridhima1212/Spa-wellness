@@ -54,7 +54,7 @@ const Navbar = () => {
         {user ? (
           <>
             {/* USER DASHBOARD */}
-            {user?.role === "USER" && (
+            {user?.role?.toUpperCase() === "USER" && (
               <li>
                 <NavLink to="/dashboard" onClick={closeMenu}>
                   My Bookings
@@ -63,7 +63,7 @@ const Navbar = () => {
             )}
 
             {/* ADMIN DASHBOARD */}
-            {user?.role === "ADMIN" && (
+            {user?.role?.toUpperCase() === "ADMIN" && (
               <li>
                 <NavLink to="/admin" onClick={closeMenu}>
                   Dashboard

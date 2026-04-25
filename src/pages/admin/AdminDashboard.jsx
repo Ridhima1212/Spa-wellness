@@ -2,50 +2,102 @@ import "./admin-dashboard.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useEffect, useState } from "react";
+import API_BASE_URL from "../../config";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
 
   const [bookings, setBookings] = useState([]);
+  const [systemUsers, setSystemUsers] = useState([]);
 
   // 🔐 Protect admin route
   useEffect(() => {
-    if (!user || user.role !== "ADMIN") {
+    if (!user || user.role?.toUpperCase() !== "ADMIN") {
       navigate("/");
     }
   }, [user, navigate]);
 
-  // 📊 Load bookings
+  // 📊 Load bookings & users
   useEffect(() => {
-    const loadBookings = () => {
-      const storedBookings = JSON.parse(localStorage.getItem("bookings")) || [];
-      setBookings(storedBookings);
+    const loadBookings = async () => {
+      if (user?.token) {
+        try {
+          const res = await fetch(`${API_BASE_URL}/api/bookings`, {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          });
+          const data = await res.json();
+          if (res.ok) {
+            setBookings(data);
+          }
+        } catch (error) {
+          console.error("Failed to load bookings:", error);
+        }
+      }
+    };
+
+    const loadUsers = async () => {
+      if (user?.token) {
+        try {
+          const res = await fetch(`${API_BASE_URL}/api/users`, {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          });
+          const data = await res.json();
+          if (res.ok) {
+            setSystemUsers(data);
+          }
+        } catch (error) {
+          console.error("Failed to load users:", error);
+        }
+      }
     };
 
     loadBookings();
+    loadUsers();
+  }, [user]);
 
-    window.addEventListener("storage", loadBookings);
+  const updateStatus = async (id, status) => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/bookings/${id}/status`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify({ status }),
+      });
 
-    return () => {
-      window.removeEventListener("storage", loadBookings);
-    };
-  }, []);
-
-  const updateStatus = (id, status) => {
-    const updatedBookings = bookings.map((booking) =>
-      booking.id === id ? { ...booking, status } : booking,
-    );
-
-    setBookings(updatedBookings);
-    localStorage.setItem("bookings", JSON.stringify(updatedBookings));
+      if (res.ok) {
+        setBookings(
+          bookings.map((booking) =>
+            booking._id === id ? { ...booking, status } : booking
+          )
+        );
+      }
+    } catch (error) {
+      console.error("Failed to update status", error);
+    }
   };
 
-  const deleteBooking = (id) => {
-    const updatedBookings = bookings.filter((booking) => booking.id !== id);
+  const deleteBooking = async (id) => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/bookings/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
 
-    setBookings(updatedBookings);
-    localStorage.setItem("bookings", JSON.stringify(updatedBookings));
+      if (res.ok) {
+        setBookings(bookings.filter((booking) => booking._id !== id));
+      }
+    } catch (error) {
+      console.error("Failed to delete booking", error);
+    }
   };
 
   return (
@@ -80,9 +132,46 @@ const AdminDashboard = () => {
           </div>
 
           <div className="stat-card">
-            <h3>Users</h3>
-            <span>86</span>
+            <h3>Registered Users</h3>
+            <span>{systemUsers.length}</span>
           </div>
+        </section>
+
+        {/* REGISTERED USERS */}
+        <section className="admin-section">
+          <h2 className="section-title">Registered Users</h2>
+
+          <table className="admin-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Joined</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {systemUsers.length === 0 ? (
+                <tr>
+                  <td colSpan="4">No users found</td>
+                </tr>
+              ) : (
+                systemUsers.map((sysUser) => (
+                  <tr key={sysUser._id}>
+                    <td>{sysUser.name}</td>
+                    <td>{sysUser.email}</td>
+                    <td>
+                      <span className={`status ${sysUser.role === 'admin' ? 'accepted' : 'pending'}`}>
+                        {sysUser.role}
+                      </span>
+                    </td>
+                    <td>{new Date(sysUser.createdAt).toLocaleDateString()}</td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
         </section>
 
         {/* RECENT BOOKINGS */}
@@ -108,8 +197,8 @@ const AdminDashboard = () => {
                 </tr>
               ) : (
                 bookings.map((booking) => (
-                  <tr key={booking.id}>
-                    <td>{booking.name}</td>
+                  <tr key={booking._id}>
+                    <td>{booking.user?.name || 'Unknown User'}</td>
                     <td>{booking.service}</td>
                     <td>{booking.date}</td>
                     <td>{booking.time}</td>
@@ -127,21 +216,21 @@ const AdminDashboard = () => {
                     <td>
                       <button
                         className="accept-btn"
-                        onClick={() => updateStatus(booking.id, "Accepted")}
+                        onClick={() => updateStatus(booking._id, "Accepted")}
                       >
                         Accept
                       </button>
 
                       <button
                         className="reject-btn"
-                        onClick={() => updateStatus(booking.id, "Rejected")}
+                        onClick={() => updateStatus(booking._id, "Rejected")}
                       >
                         Reject
                       </button>
 
                       <button
                         className="delete-btn"
-                        onClick={() => deleteBooking(booking.id)}
+                        onClick={() => deleteBooking(booking._id)}
                       >
                         Delete
                       </button>
