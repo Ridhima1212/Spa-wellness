@@ -94,11 +94,11 @@ return (
             <tbody>
               {bookings.map((booking) => (
                 <tr key={booking._id}>
-                  <td className="service-cell">{booking.service}</td>
-                  <td>{booking.date}</td>
-                  <td>{booking.time}</td>
+                  <td className="service-cell" data-label="Service">{booking.service}</td>
+                  <td data-label="Date">{booking.date}</td>
+                  <td data-label="Time">{booking.time}</td>
 
-                  <td>
+                  <td data-label="Status">
                     <span className={`status ${booking.status?.toLowerCase()}`}>
                       {booking.status || "Pending"}
                     </span>

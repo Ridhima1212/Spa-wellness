@@ -546,6 +546,113 @@ section h2 {
   transform: translateY(-2px);
 }
 
+/* ---------- TESTIMONIALS LIST SECTION (OUTSIDE CARD) ---------- */
+.testimonials-list-section {
+  width: 100%;
+  max-width: 1100px;
+  margin-top: 50px;
+  padding: 40px 30px;
+  text-align: center;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 
+    0 30px 70px rgba(0, 0, 0, 0.06),
+    inset 0 1px 1px rgba(255, 255, 255, 0.3);
+  animation: slideUpFade 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.testimonials-list-heading {
+  font-size: 2.2rem;
+  color: var(--gold-dark);
+  margin-bottom: 35px;
+  font-weight: 600;
+  text-align: center;
+  position: relative;
+}
+
+.testimonials-list-heading::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--gold-primary);
+  margin: 12px auto 0;
+  border-radius: 10px;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  justify-content: center;
+}
+
+.no-testimonials {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 15px;
+  max-width: 500px;
+  margin: 0 auto;
+  border: 1px dashed var(--gold-primary);
+}
+
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- GUEST LOGIN PROMPT ---------- */
+.login-prompt-container {
+  text-align: center;
+  padding: 40px 30px;
+}
+
+.login-prompt-container h3 {
+  font-size: 1.6rem;
+  color: var(--gold-dark);
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+
+.login-prompt-container p {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+.prompt-login-btn {
+  display: inline-block;
+  padding: 14px 40px;
+  border-radius: 30px;
+  border: 2px solid var(--gold-primary);
+  background: var(--gold-primary);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.prompt-login-btn:hover {
+  background: transparent;
+  color: var(--gold-primary);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(201, 162, 77, 0.3);
+}
+
 /* =====================================================
    BOOKING FORM
 ===================================================== */
@@ -1451,7 +1558,7 @@ section h2 {
 
   display: flex;
   justify-content: center;
-  padding: 60px 20px;
+  padding: 120px 20px 60px;
   overflow: hidden;
 }
 
@@ -1478,6 +1585,10 @@ section h2 {
 }
 
 /* HEADER */
+.dashboard-header {
+  margin-bottom: 10px;
+}
+
 .dashboard-header h1 {
   font-size: 34px;
   font-weight: 700;
@@ -1498,6 +1609,8 @@ section h2 {
   padding: 25px;
   box-shadow: 0 30px 60px rgba(0,0,0,0.1);
   transition: 0.3s ease;
+  overflow-x: auto;               /* 👈 allow horizontal scroll */
+  -webkit-overflow-scrolling: touch;
 }
 
 .table-card:hover {
@@ -1588,6 +1701,151 @@ section h2 {
   border-radius: 20px;
   text-align: center;
   box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+/* =============== DASHBOARD TABLE — TABLET =============== */
+@media (max-width: 900px) {
+  .dashboard-container {
+    padding: 110px 16px 40px;
+  }
+
+  .dashboard-header {
+    text-align: center;
+  }
+
+  .dashboard-header h1 {
+    font-size: 28px;
+  }
+
+  .dashboard-header p {
+    font-size: 14px;
+  }
+
+  .dashboard-content {
+    max-width: 100%;
+  }
+
+  .table-card {
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .user-table th,
+  .user-table td {
+    padding: 10px 8px;
+    font-size: 13px;
+  }
+
+  .cancel-btn {
+    padding: 5px 12px;
+    font-size: 12px;
+  }
+
+  .empty-state {
+    padding: 40px 24px;
+  }
+}
+
+/* =============== DASHBOARD TABLE — MOBILE (card layout) =============== */
+@media (max-width: 600px) {
+  .dashboard-container {
+    padding: 100px 10px 30px;
+  }
+
+  .dashboard-header {
+    text-align: center;
+  }
+
+  .dashboard-header h1 {
+    font-size: 22px;
+  }
+
+  .dashboard-header p {
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+
+  .table-card {
+    padding: 12px 10px;
+    border-radius: 14px;
+    overflow-x: visible;            /* disable scroll — using card layout */
+  }
+
+  .table-top h2 {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  /* hide the header row */
+  .user-table thead {
+    display: none;
+  }
+
+  .user-table,
+  .user-table tbody {
+    display: block;
+    width: 100%;
+  }
+
+  /* each row becomes a stacked card */
+  .user-table tr {
+    display: block;
+    background: rgba(255,255,255,0.95);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    border-bottom: none;
+  }
+
+  .user-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 4px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+    text-align: right;
+  }
+
+  .user-table td:last-child {
+    border-bottom: none;
+    justify-content: center;
+    padding-top: 12px;
+  }
+
+  /* data-label pseudo-element for each cell */
+  .user-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #555;
+    text-align: left;
+    flex-shrink: 0;
+    margin-right: 12px;
+  }
+
+  .user-table td:last-child::before {
+    display: none;
+  }
+
+  .cancel-btn {
+    width: 100%;
+    padding: 8px 0;
+    text-align: center;
+  }
+
+  .empty-state {
+    padding: 30px 16px;
+    border-radius: 16px;
+  }
+
+  .empty-state h3 {
+    font-size: 18px;
+  }
+
+  .empty-state p {
+    font-size: 14px;
+  }
 }
 
 .dashboard-btn {
